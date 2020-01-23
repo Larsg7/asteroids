@@ -15,9 +15,11 @@ protected:
 public:
     sf::Vector2f position;
     sf::Vector2f velocity;
+    float rotation;
     virtual void update() = 0;
 
-    MoveAble(const sf::Vector2f &position, const sf::Vector2f &velocity);
+
+    MoveAble(const sf::Vector2f &position, const sf::Vector2f &velocity, float rotation);
 
     MoveAble();
 };

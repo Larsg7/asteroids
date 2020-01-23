@@ -4,10 +4,14 @@
 
 #include "MoveAble.h"
 
-MoveAble::MoveAble(const sf::Vector2f &position, const sf::Vector2f &velocity) : position(position), velocity(velocity) {}
 
 void MoveAble::updatePosition() {
     position = position + velocity;
 }
 
 MoveAble::MoveAble() {}
+
+MoveAble::MoveAble(const sf::Vector2f &position, const sf::Vector2f &velocity, float rotation) : position(position),
+                                                                                                 velocity(velocity),
+                                                                                                 rotation(rotation) {}
+

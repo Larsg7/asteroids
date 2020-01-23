@@ -14,8 +14,8 @@
 class Asteroids {
 private:
     GameState gameState = Menu;
-    unsigned points;
-    unsigned lives = 5;
+    unsigned points = 0U;
+    unsigned lives = 5U;
     sf::RenderWindow* window;
     Player player;
 
@@ -25,6 +25,8 @@ public:
     void acceptInput(sf::Event &event);
 
     Asteroids(sf::RenderWindow *window);
+
+    void handleKeyPress(sf::Event &event);
 };
 
 
