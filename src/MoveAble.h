@@ -18,10 +18,18 @@ public:
     float rotation;
     virtual void update() = 0;
 
+    const sf::Vector2f &getPosition() const;
+
+    const sf::Vector2f &getVelocity() const;
+
+    float getRotation() const;
+    sf::Vector2f getDirectionVector() const;
 
     MoveAble(const sf::Vector2f &position, const sf::Vector2f &velocity, float rotation);
 
     MoveAble();
+
+    virtual ~MoveAble();
 };
 
 

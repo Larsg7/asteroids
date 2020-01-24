@@ -10,14 +10,20 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "GameState.h"
 #include "Player.h"
+#include "Bullet.h"
 
 class Asteroids {
 private:
     GameState gameState = Menu;
     unsigned points = 0U;
     unsigned lives = 5U;
+
+    const float bulletSpeed = 1.f;
+
     sf::RenderWindow* window;
-    Player player;
+    Player* player;
+    std::vector<Bullet> bullets;
+    std::vector<MoveAble> asteroids; // TODO
 
     void advanceAsteroids();
 public:
@@ -27,6 +33,14 @@ public:
     Asteroids(sf::RenderWindow *window);
 
     void handleKeyPress(sf::Event &event);
+
+    void shootBullet();
+
+    void advanceBullets();
+
+    void cleanUp();
+
+    bool outsideWindow(std::vector<MoveAble, std::allocator<MoveAble>>::iterator iter);
 };
 
 

@@ -6,6 +6,7 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Player.h"
+#include "Helper.h"
 
 void Player::turnRight() {
     rotation += turnAngle;
@@ -28,10 +29,7 @@ void Player::moveBackward() {
 }
 
 sf::Vector2f Player::getAccelerationVector() const {
-    sf::Transform t;
-    t.rotate(rotation);
-    sf::Vector2f acc = t.transformPoint(sf::Vector2f(0, -1)) * acceleration;
-    return acc;
+    return getDirectionVector() * acceleration;
 }
 
 void Player::update() {
@@ -39,19 +37,29 @@ void Player::update() {
 }
 
 void Player::draw(sf::RenderWindow *window) {
-    sf::CircleShape triangle(80.f, 3);
+    sf::CircleShape triangle(radius, 3);
+    sf::CircleShape tip(5, 100);
     triangle.setFillColor(sf::Color::Black);
-
     triangle.setOutlineThickness(10.f);
     triangle.setOutlineColor(sf::Color::White);
-    triangle.setOrigin(sf::Vector2f(80, 80));
+    triangle.setOrigin(sf::Vector2f(radius, radius));
+    tip.setFillColor(sf::Color::Black);
+    tip.setOutlineThickness(12.f);
+    tip.setOutlineColor(sf::Color::White);
+    tip.setOrigin(sf::Vector2f(5, 5));
+    tip.setPosition(getTip() + getDirectionVector());
     triangle.setPosition(position);
     triangle.setRotation(rotation);
     window->draw(triangle);
+    window->draw(tip);
 }
 
 Player::Player(const sf::Vector2f &position, const sf::Vector2f &velocity) : MoveAble(position, velocity,
                                                                                       0) {}
 
-Player::Player() {}
+Player::Player() = default;
+
+sf::Vector2f Player::getTip() {
+    return position + getDirectionVector() * radius;
+}
 

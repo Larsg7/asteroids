@@ -8,10 +8,14 @@
 
 #include "MoveAble.h"
 
-class Bullet : MoveAble {
+class Bullet : public MoveAble {
+    constexpr const static float radius = 10.f;
+public:
     void draw(sf::RenderWindow *window) override;
 
     void update() override;
+    Bullet(const sf::Vector2f &position, const sf::Vector2f &velocity, float rotation);
+
 };
 
 

@@ -8,11 +8,13 @@
 
 #include "MoveAble.h"
 
-class Player : MoveAble {
+class Player : public MoveAble {
 private:
-    float turnAngle = 1;
-    float acceleration = 0.001f;
-    float maxSpeed = 0.01f;
+    const float turnAngle = 5;
+    const float acceleration = 0.01f;
+    const float maxSpeed = 0.01f;
+    const float radius = 40.f;
+    sf::Vector2f getAccelerationVector() const;
 public:
     // these methods will be called on input events and change position or velocity
     void turnRight();
@@ -27,7 +29,8 @@ public:
 
     Player();
 
-    sf::Vector2f getAccelerationVector() const;
+
+    sf::Vector2f getTip();
 };
 
 
