@@ -36,3 +36,7 @@ sf::Vector2f MoveAble::getDirectionVector() const {
     return Helper::getUnitVector(rotation);
 }
 
+void MoveAble::setRotation(float rotation) {
+    MoveAble::rotation = rotation;
+}
+

@@ -24,6 +24,9 @@ void Asteroids::acceptInput(sf::Event &event) {
         case sf::Event::MouseMoved:
             handleMouseMove(event);
             break;
+        case sf::Event::MouseButtonPressed:
+            handleMousePressed(event);
+            break;
         default:
             break;
     }
@@ -101,6 +104,21 @@ bool Asteroids::outsideWindow(MoveAble* iter) {
 }
 
 void Asteroids::handleMouseMove(sf::Event &event) {
+    sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(*window));
 
+    sf::Vector2f distance =  player->getPosition() - mousePos;
+
+    float rotation = Helper::angleOfVector(distance);
+    player->setRotation(rotation);
+}
+
+void Asteroids::handleMousePressed(sf::Event &event) {
+    switch (event.mouseButton.button) {
+        case sf::Mouse::Left:
+            shootBullet();
+            break;
+        default:
+            break;
+    }
 }
 

@@ -48,6 +48,8 @@ public:
 
 
     void handleMouseMove(sf::Event &event);
+
+    void handleMousePressed(sf::Event &event);
 };
 
 
