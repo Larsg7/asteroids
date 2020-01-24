@@ -21,6 +21,9 @@ void Asteroids::acceptInput(sf::Event &event) {
         case sf::Event::KeyPressed:
             handleKeyPress(event);
             break;
+        case sf::Event::MouseMoved:
+            handleMouseMove(event);
+            break;
         default:
             break;
     }
@@ -78,22 +81,26 @@ void Asteroids::advanceBullets() {
 
 void Asteroids::cleanUp() {
     for (auto it = bullets.begin(); it != bullets.end(); it++) {
-        if (outsideWindow(it)) {
+        if (outsideWindow(&(*it))) {
             bullets.erase(it--);
         }
     }
     for (auto it = asteroids.begin(); it != asteroids.end(); it++) {
-        if (outsideWindow(it)) {
+        if (outsideWindow(&(*it))) {
             asteroids.erase(it--);
         }
     }
 }
 
-bool Asteroids::outsideWindow(std::vector<MoveAble, std::allocator<MoveAble>>::iterator iter) {
+bool Asteroids::outsideWindow(MoveAble* iter) {
     int screenWidth = window->getSize().x;
     int screenHeight = window->getSize().y;
 
     sf::Vector2f pos = iter->position;
     return pos.x > screenWidth || pos.x < 0 || pos.y > screenHeight || pos.y < 0;
+}
+
+void Asteroids::handleMouseMove(sf::Event &event) {
+
 }
 

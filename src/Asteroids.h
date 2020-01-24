@@ -35,7 +35,7 @@ private:
 
     void cleanUp();
 
-    bool outsideWindow(std::vector<MoveAble, std::allocator<MoveAble>>::iterator iter);
+    bool outsideWindow(MoveAble* iter);
 
 public:
     void run();
@@ -47,7 +47,7 @@ public:
     void handleKeyPress(sf::Event &event);
 
 
-
+    void handleMouseMove(sf::Event &event);
 };
 
 
