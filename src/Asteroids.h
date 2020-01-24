@@ -10,6 +10,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "GameState.h"
 #include "Player.h"
+#include "Asteroid.h"
 #include "Bullet.h"
 
 class Asteroids {
@@ -20,8 +21,9 @@ private:
 
     const float bulletSpeed = 1.f;
 
-    sf::RenderWindow *window;
-    Player *player;
+    sf::RenderWindow* window;
+    Asteroid asteroid;
+    Player* player;
     std::vector<Bullet> bullets;
     std::vector<MoveAble> asteroids; // TODO
 

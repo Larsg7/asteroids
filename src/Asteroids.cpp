@@ -6,6 +6,8 @@
 #include "Helper.h"
 
 void Asteroids::run() {
+    asteroid.draw(window);
+    asteroid.update();
     player->draw(window);
     player->update();
     advanceAsteroids();
@@ -29,6 +31,7 @@ void Asteroids::advanceAsteroids() {
 }
 
 Asteroids::Asteroids(sf::RenderWindow *window) : window(window) {
+    asteroid = Asteroid(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
     player = new Player(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
 }
 
