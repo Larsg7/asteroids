@@ -13,6 +13,9 @@ void Asteroids::run() {
     advanceAsteroids();
     advanceBullets();
     cleanUp();
+    hud->setLives(lives);
+    hud->setPoints(points);
+    hud->display();
 }
 
 void Asteroids::acceptInput(sf::Event &event) {
@@ -39,6 +42,7 @@ void Asteroids::advanceAsteroids() {
 Asteroids::Asteroids(sf::RenderWindow *window) : window(window) {
     asteroid = Asteroid(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
     player = new Player(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
+    hud = new Hud(window);
 }
 
 void Asteroids::handleKeyPress(sf::Event &event) {

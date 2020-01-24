@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "Asteroid.h"
 #include "Bullet.h"
+#include "Hud.h"
 
 class Asteroids {
 private:
@@ -24,6 +25,7 @@ private:
     sf::RenderWindow* window;
     Asteroid asteroid;
     Player* player;
+    Hud* hud;
     std::vector<Bullet> bullets;
     std::vector<MoveAble> asteroids; // TODO
 
