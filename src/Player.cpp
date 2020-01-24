@@ -34,7 +34,7 @@ sf::Vector2f Player::getAccelerationVector() const {
 
 void Player::update() {
     updatePosition();
-    velocity = velocity * 0.9995f;
+    velocity = velocity * 0.999f;
 }
 
 void Player::draw(sf::RenderWindow *window) {
@@ -57,7 +57,9 @@ void Player::draw(sf::RenderWindow *window) {
 }
 
 Player::Player(const sf::Vector2f &position, const sf::Vector2f &velocity) : MoveAble(position, velocity,
-                                                                                      0) {}
+                                                                                      0) {
+    loadSounds();
+}
 
 Player::Player() = default;
 
@@ -78,5 +80,16 @@ void Player::maybeLoopPlayerPosition(sf::RenderWindow *window) {
     if (position.y > window->getSize().y) {
         position.y = 0;
     }
+}
+
+void Player::loadSounds() {
+    sf::SoundBuffer buffer;
+    if (!buffer.loadFromFile("assets/shoot.wav"))
+        return;
+    shootingSound.setBuffer(buffer);
+}
+
+void Player::playShootingSound() {
+    shootingSound.play();
 }
 

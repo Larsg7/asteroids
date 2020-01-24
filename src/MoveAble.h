@@ -21,6 +21,8 @@ public:
 
     const sf::Vector2f &getVelocity() const;
 
+    void setRotation(float rotation);
+
     float getRotation() const;
     sf::Vector2f getDirectionVector() const;
     virtual void draw(sf::RenderWindow *window) = 0;

@@ -24,6 +24,7 @@ int main() {
             asteroids.acceptInput(event);
         }
         window.display();
+        window.setFramerateLimit(60);
     }
     return 0;
 }
