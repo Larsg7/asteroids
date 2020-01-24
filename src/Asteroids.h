@@ -19,7 +19,7 @@ private:
     unsigned points = 0U;
     unsigned lives = 5U;
 
-    const float bulletSpeed = 1.f;
+    const float bulletSpeed = 10.f;
 
     sf::RenderWindow* window;
     Asteroid asteroid;

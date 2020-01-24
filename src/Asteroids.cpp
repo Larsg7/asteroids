@@ -73,6 +73,7 @@ void Asteroids::shootBullet() {
     sf::Vector2f velocity = player->getDirectionVector() * bulletSpeed;
     Bullet b(tip, velocity, 0);
     bullets.push_back(b);
+    player->playShootingSound();
 }
 
 void Asteroids::advanceBullets() {

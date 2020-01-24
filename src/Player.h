@@ -7,14 +7,16 @@
 
 
 #include "MoveAble.h"
+#include <SFML/Audio.hpp>
 
 class Player : public MoveAble {
 private:
     const float turnAngle = 5;
-    const float acceleration = 0.01f;
-    const float maxSpeed = 0.01f;
+    const float acceleration = 0.1f;
+    const float maxSpeed = 0.1f;
     const float radius = 40.f;
     sf::Vector2f getAccelerationVector() const;
+    sf::Sound shootingSound;
 public:
     // these methods will be called on input events and change position or velocity
     void turnRight();
@@ -33,6 +35,10 @@ public:
     sf::Vector2f getTip();
 
     void maybeLoopPlayerPosition(sf::RenderWindow *pWindow);
+
+    void loadSounds();
+
+    void playShootingSound();
 };
 
 
