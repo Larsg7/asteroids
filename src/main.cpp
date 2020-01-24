@@ -3,7 +3,7 @@
 #include "Asteroids.h"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Asteroids");
+    sf::RenderWindow window(sf::VideoMode(1800, 1600), "Asteroids");
 
     Asteroids asteroids(&window);
 
