@@ -10,6 +10,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "GameState.h"
 #include "Player.h"
+#include "Asteroid.h"
 
 class Asteroids {
 private:
@@ -18,6 +19,7 @@ private:
     unsigned lives = 5U;
     sf::RenderWindow* window;
     Player player;
+    Asteroid asteroid;
 
     void advanceAsteroids();
 public:

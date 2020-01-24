@@ -7,6 +7,8 @@
 void Asteroids::run() {
     player.draw(window);
     player.update();
+    asteroid.draw(window);
+    asteroid.update();
     advanceAsteroids();
 }
 
@@ -27,6 +29,7 @@ void Asteroids::advanceAsteroids() {
 
 Asteroids::Asteroids(sf::RenderWindow *window) : window(window) {
     player = Player(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
+    asteroid = Asteroid(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
 }
 
 void Asteroids::handleKeyPress(sf::Event &event) {
