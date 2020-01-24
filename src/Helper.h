@@ -15,6 +15,14 @@ public:
         t.rotate(rotation);
         return t.transformPoint(sf::Vector2f(0, -1));
     }
+    static float nextRandom(float min, float max){
+        static bool firstTime = true;
+	if (firstTime) {
+	    srand( (unsigned)time(NULL));
+	    firstTime = false;
+	}
+	return (max-min)*(rand()/(float)RAND_MAX)+min;
+    }
 };
 
 

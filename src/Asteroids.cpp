@@ -34,7 +34,7 @@ void Asteroids::advanceAsteroids() {
 }
 
 Asteroids::Asteroids(sf::RenderWindow *window) : window(window) {
-    asteroid = Asteroid(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
+    asteroid = Asteroid(asteroid.startPos(window->getSize().x,window->getSize().y), sf::Vector2f());
     player = new Player(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
 }
 

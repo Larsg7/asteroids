@@ -8,6 +8,7 @@
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <stdlib.h>
 #include "GameState.h"
 #include "Player.h"
 #include "Asteroid.h"
@@ -46,8 +47,9 @@ public:
 
     void handleKeyPress(sf::Event &event);
 
-
     void handleMouseMove(sf::Event &event);
+    
+    double nextRandom(double min, double max);
 };
 
 
