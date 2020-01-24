@@ -6,7 +6,7 @@
 #define ASTEROIDS_GAMESTATE_H
 
 
-enum GameState {Menu, Running, GameOver, Quitting};
+enum GameState {Menu, Starting, Running, Pause, GameOver, Quitting};
 
 
 #endif //ASTEROIDS_GAMESTATE_H
