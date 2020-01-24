@@ -79,6 +79,11 @@ void Asteroids::cleanUp() {
             bullets.erase(it--);
         }
     }
+    for (auto it = asteroids.begin(); it != asteroids.end(); it++) {
+        if (outsideWindow(it)) {
+            asteroids.erase(it--);
+        }
+    }
 }
 
 bool Asteroids::outsideWindow(std::vector<MoveAble, std::allocator<MoveAble>>::iterator iter) {
@@ -88,5 +93,4 @@ bool Asteroids::outsideWindow(std::vector<MoveAble, std::allocator<MoveAble>>::i
     sf::Vector2f pos = iter->position;
     return pos.x > screenWidth || pos.x < 0 || pos.y > screenHeight || pos.y < 0;
 }
-
 

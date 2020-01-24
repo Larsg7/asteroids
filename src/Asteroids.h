@@ -20,19 +20,12 @@ private:
 
     const float bulletSpeed = 1.f;
 
-    sf::RenderWindow* window;
-    Player* player;
+    sf::RenderWindow *window;
+    Player *player;
     std::vector<Bullet> bullets;
     std::vector<MoveAble> asteroids; // TODO
 
     void advanceAsteroids();
-public:
-    void run();
-    void acceptInput(sf::Event &event);
-
-    Asteroids(sf::RenderWindow *window);
-
-    void handleKeyPress(sf::Event &event);
 
     void shootBullet();
 
@@ -41,6 +34,18 @@ public:
     void cleanUp();
 
     bool outsideWindow(std::vector<MoveAble, std::allocator<MoveAble>>::iterator iter);
+
+public:
+    void run();
+
+    void acceptInput(sf::Event &event);
+
+    Asteroids(sf::RenderWindow *window);
+
+    void handleKeyPress(sf::Event &event);
+
+
+
 };
 
 

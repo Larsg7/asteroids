@@ -34,9 +34,11 @@ sf::Vector2f Player::getAccelerationVector() const {
 
 void Player::update() {
     updatePosition();
+    velocity = velocity * 0.9995f;
 }
 
 void Player::draw(sf::RenderWindow *window) {
+    maybeLoopPlayerPosition(window);
     sf::CircleShape triangle(radius, 3);
     sf::CircleShape tip(5, 100);
     triangle.setFillColor(sf::Color::Black);
@@ -61,5 +63,20 @@ Player::Player() = default;
 
 sf::Vector2f Player::getTip() {
     return position + getDirectionVector() * radius;
+}
+
+void Player::maybeLoopPlayerPosition(sf::RenderWindow *window) {
+    if (position.x < 0) {
+        position.x = window->getSize().x;
+    }
+    if (position.x > window->getSize().x) {
+        position.x = 0;
+    }
+    if (position.y < 0) {
+        position.y = window->getSize().y;
+    }
+    if (position.y > window->getSize().y) {
+        position.y = 0;
+    }
 }
 

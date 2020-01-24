@@ -31,6 +31,8 @@ public:
 
 
     sf::Vector2f getTip();
+
+    void maybeLoopPlayerPosition(sf::RenderWindow *pWindow);
 };
 
 
