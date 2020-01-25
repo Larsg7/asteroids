@@ -9,7 +9,7 @@
 
 class Asteroid : MoveAble {
 private:
-    float speed = 0.1f;
+    float speed = 1.f;
     float direction = 1;
 public:
 
