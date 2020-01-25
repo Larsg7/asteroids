@@ -7,16 +7,15 @@
 
 #include "MoveAble.h"
 
-class Asteroid : MoveAble {
+class Asteroid : public MoveAble {
 private:
     float speed;
-    float minSpeed=1;
-    float maxSpeed=10;
+    float minSpeed=4;
+    float maxSpeed=8;
     float minSize=10;
-    float maxSize=80;
+    float maxSize=70;
     float size;
     float direction;
-    int startDir;
 public:
 
     void setVel();

@@ -5,9 +5,9 @@
 #include "Asteroids.h"
 #include "Helper.h"
 
+const int numAsteroids = 10;
+
 void Asteroids::run() {
-    asteroid.draw(window);
-    asteroid.update();
     player->draw(window);
     player->update();
     advanceAsteroids();
@@ -33,11 +33,22 @@ void Asteroids::acceptInput(sf::Event &event) {
 }
 
 void Asteroids::advanceAsteroids() {
-
+    int numNewAst=numAsteroids-asteroids.size();
+    for (int i=0;i<numNewAst;i++){
+        Asteroid a(a.startPos(window->getSize().x,window->getSize().y), sf::Vector2f());
+	asteroids.push_back(a);
+    }
+    for (Asteroid &m : asteroids) {
+        m.update();
+        m.draw(window);
+    }
 }
 
 Asteroids::Asteroids(sf::RenderWindow *window) : window(window) {
-    asteroid = Asteroid(asteroid.startPos(window->getSize().x,window->getSize().y), sf::Vector2f());
+    for (int i=0;i<numAsteroids+1;i++){
+        Asteroid a(a.startPos(window->getSize().x,window->getSize().y), sf::Vector2f());
+	asteroids.push_back(a);
+    }
     player = new Player(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
 }
 

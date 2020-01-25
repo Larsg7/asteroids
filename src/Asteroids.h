@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Asteroid.h"
 #include "Bullet.h"
+#include "MoveAble.h"
 
 class Asteroids {
 private:
@@ -23,10 +24,9 @@ private:
     const float bulletSpeed = 10.f;
 
     sf::RenderWindow* window;
-    Asteroid asteroid;
     Player* player;
     std::vector<Bullet> bullets;
-    std::vector<MoveAble> asteroids; // TODO
+    std::vector<Asteroid> asteroids; // TODO
 
     void advanceAsteroids();
 
