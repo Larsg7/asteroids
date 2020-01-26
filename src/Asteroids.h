@@ -5,16 +5,17 @@
 #ifndef ASTEROIDS_ASTEROIDS_H
 #define ASTEROIDS_ASTEROIDS_H
 
-
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <stdlib.h>
+#include <cstdlib>
 #include "GameState.h"
 #include "Player.h"
 #include "Asteroid.h"
 #include "Bullet.h"
 #include "MoveAble.h"
 #include "Hud.h"
+#include "MainMenu.h"
+#include "GameO.h"
 
 class Asteroids {
 public:
@@ -32,9 +33,9 @@ public:
 
     void handleMousePressed(sf::Event &event);
 
+    GameState gameState = Menu;
 private:
     const unsigned startingLives = 5U;
-    GameState gameState = Menu;
     unsigned points = 0U;
     unsigned lives = 5U;
 
@@ -47,7 +48,8 @@ private:
     std::vector<Asteroid> asteroids;
     std::chrono::time_point<std::chrono::high_resolution_clock> last_shot = std::chrono::high_resolution_clock::now();
     float timeBetweenShots = 0.2; // in seconds
-
+    MainMenu* mMenu;
+    GameO* gameO;
 
     void shootBullet();
 

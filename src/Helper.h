@@ -7,6 +7,8 @@
 
 
 #include <SFML/Graphics/Transform.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Event.hpp>
 #include <cmath>
 
 class Helper {
@@ -50,6 +52,23 @@ public:
 
     static float getLengthOfVector(sf::Vector2<float> vector2) {
         return sqrt(pow(vector2.x, 2) + pow(vector2.y, 2));
+    }
+
+    static sf::Vector2i Mouse_Click() {
+        static bool pressed = false;
+        sf::Vector2i position;
+        while (true) {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                if (!pressed) {
+                    position = sf::Mouse::getPosition();
+                    pressed = true;
+                    break;
+                }
+            } else {
+                pressed = false;
+            }
+        }
+        return position;
     }
 };
 

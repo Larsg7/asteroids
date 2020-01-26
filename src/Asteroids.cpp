@@ -11,7 +11,7 @@ const int numAsteroids = 10;
 void Asteroids::run() {
     switch (gameState) {
         case Menu:
-            gameState = Starting; // TODO
+            mMenu->display();
             break;
         case Starting:
             resetGame();
@@ -24,9 +24,10 @@ void Asteroids::run() {
             draw();
             break;
         case GameOver:
-            std::cout << "GAMEOVER" << std::endl;
-            exit(0); // TODO
+            gameO->display(points);
+            break;
         case Quitting:
+            window->close();
             break;
     }
 }
@@ -47,6 +48,14 @@ void Asteroids::updateHud() const {
 }
 
 void Asteroids::acceptInput(sf::Event &event) {
+    if (gameState == Menu) {
+        mMenu->acceptInput(event);
+        return;
+    }
+    if (gameState == GameOver) {
+        gameO->acceptInput(event);
+        return;
+    }
     switch (event.type) {
         // key pressed
         case sf::Event::KeyPressed:
@@ -70,6 +79,8 @@ Asteroids::Asteroids(sf::RenderWindow *window) : window(window) {
     }
     player = new Player(getInitialPlayerPos(), sf::Vector2f());
     hud = new Hud(window);
+    mMenu = new MainMenu(window, this);
+    gameO = new GameO(window, this);
 }
 
 sf::Vector2<float>
@@ -174,6 +185,8 @@ void Asteroids::handleMousePressed(sf::Event &event) {
 Asteroids::~Asteroids() {
     delete (player);
     delete (hud);
+    delete(mMenu);
+    delete(gameO);
 }
 
 void Asteroids::checkCollisions() {
