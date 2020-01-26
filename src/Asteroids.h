@@ -14,7 +14,7 @@
 #include "Bullet.h"
 #include "MoveAble.h"
 #include "Hud.h"
-#include "Menu.h"
+#include "MainMenu.h"
 
 class Asteroids {
 private:
@@ -29,7 +29,7 @@ private:
     Hud* hud;
     std::vector<Bullet> bullets;
     std::vector<Asteroid> asteroids;
-    Menu* menu;
+    MainMenu* mMenu;
 
     void advanceAsteroids();
 
