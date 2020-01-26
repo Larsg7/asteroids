@@ -4,18 +4,18 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
-#include "MainMenu.h"
-#include "Helper.h" 
+#include "GameO.h"
+#include "Helper.h"
 
-void MainMenu::update() {
+void GameO::update() {
 }
 
-bool MainMenu::display() {
+bool GameO::display(int npoints) {
     sf::Font font;
     float padding = 50;
     if(!font.loadFromFile("assets/arial.ttf")){return false;}
     sf::Text start;
-    start.setString("START");
+    start.setString("RESTART");
     start.setFont(font);
     start.setCharacterSize(100);
     start.setOutlineColor(sf::Color::White);
@@ -39,8 +39,35 @@ bool MainMenu::display() {
     float exity=window->getSize().y/2-eHeight/2+padding;
     exit.setPosition(exitx,exity);
     window->draw(exit);
-    
+
+    sf::Text points;
+    float padding2 = 10;
+    points.setString(std::to_string(npoints));
+    points.setPosition(padding2, window->getSize().y - padding2 - 110);
+
+    points.setFont(font);
+    points.setCharacterSize(100);
+
+    points.setOutlineColor(sf::Color::Red);
+    points.setFillColor(sf::Color::Red);
+
+    window->draw(points);
+
+    sf::Text GO ;
+    GO.setString("GAMEOVER");
+    GO.setFont(font);
+    GO.setCharacterSize(100);
+    GO.setOutlineColor(sf::Color::Red);
+    GO.setFillColor(sf::Color::Red);
+    float gWidth=GO.getLocalBounds().width;
+    float gHeight=GO.getLocalBounds().height;
+    float gox=window->getSize().x/2-gWidth/2;
+    float goy=0;
+    GO.setPosition(gox,goy);
+    window->draw(GO);
+
     auto position = Helper::Mouse_Click();
+
     if (position.x>startx&&position.x<sWidth+startx&&position.y>starty+padding&&position.y<starty+sHeight+padding){
 	return true;
     } else if (position.x>exitx&&position.x<eWidth+exitx&&position.y>exity+padding&&position.y<exity+eHeight+padding){
@@ -50,8 +77,8 @@ bool MainMenu::display() {
 }
 
 
-MainMenu::MainMenu(sf::RenderWindow* window) : window(window) {
+GameO::GameO(sf::RenderWindow* window) : window(window) {
 }
 
-MainMenu::MainMenu(){}
+GameO::GameO(){}
 

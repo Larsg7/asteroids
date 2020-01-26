@@ -4,21 +4,16 @@
 
 #include "Asteroids.h"
 #include "Helper.h"
-//#include <unistd.h>
 
 const int numAsteroids = 10;
 
 void Asteroids::run() {
     switch(gameState){
         case Menu:
-	    if(
-	    mMenu->display()
-	    ){
+	    if(mMenu->display()){
 	        gameState=Running;
 		break;
 	    }
-	    //usleep(3e6);
-	    //gameState=Running;
 	    break;
 	case Running:
             player->draw(window);
@@ -29,6 +24,16 @@ void Asteroids::run() {
             hud->setLives(lives);
             hud->setPoints(points);
             hud->display();
+	    if (lives==0){
+	        gameState=GameOver;
+		break;
+	    }
+	    break;
+	case GameOver:
+	    if( gameO->display(points)){
+	        gameState=Menu;
+		break;
+	    }
 	    break;
 	default:
 	    break;
@@ -72,6 +77,7 @@ Asteroids::Asteroids(sf::RenderWindow *window) : window(window) {
     player = new Player(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
     hud = new Hud(window);
     mMenu = new MainMenu(window);
+    gameO = new GameO(window);
 }
 
 void Asteroids::handleKeyPress(sf::Event &event) {

@@ -7,6 +7,8 @@
 
 
 #include <SFML/Graphics/Transform.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Event.hpp>
 #include <cmath>
 
 class Helper {
@@ -44,6 +46,23 @@ public:
         else if (y < 0) // quadrant 
             ret = 270 + (90 + ret); // it actually substracts
         return ret - 90;
+    }
+    
+    static sf::Vector2i Mouse_Click(){
+        static bool pressed =false;
+	sf::Vector2i position;
+	while(true){
+	    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+	        if(!pressed){
+                    position=sf::Mouse::getPosition();
+		    pressed=true;
+		    break;
+		}
+	    } else {
+	        pressed=false;
+	    }
+	}
+	return position;
     }
 };
 

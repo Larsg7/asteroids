@@ -6,12 +6,10 @@
 #define ASTEROIDS_MAINMENU_H
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "GameState.h"
 
 class MainMenu {
 private:
     sf::RenderWindow* window;
-    //GameState nextState = Running;
 public:
 
     void update();
