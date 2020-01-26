@@ -8,14 +8,23 @@
 const int numAsteroids = 10;
 
 void Asteroids::run() {
-    player->draw(window);
-    player->update();
-    advanceAsteroids();
-    advanceBullets();
-    cleanUp();
-    hud->setLives(lives);
-    hud->setPoints(points);
-    hud->display();
+    switch(gameState){
+        case Menu:
+	    menu->draw();
+	    break;
+	case Running:
+            player->draw(window);
+            player->update();
+            advanceAsteroids();
+            advanceBullets();
+            cleanUp();
+            hud->setLives(lives);
+            hud->setPoints(points);
+            hud->display();
+	    break;
+	default:
+	    break;
+    }
 }
 
 void Asteroids::acceptInput(sf::Event &event) {
@@ -54,6 +63,7 @@ Asteroids::Asteroids(sf::RenderWindow *window) : window(window) {
     }
     player = new Player(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
     hud = new Hud(window);
+    menu = new Menu(window);
 }
 
 void Asteroids::handleKeyPress(sf::Event &event) {

@@ -5,7 +5,6 @@
 #ifndef ASTEROIDS_ASTEROIDS_H
 #define ASTEROIDS_ASTEROIDS_H
 
-
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <stdlib.h>
@@ -15,6 +14,7 @@
 #include "Bullet.h"
 #include "MoveAble.h"
 #include "Hud.h"
+#include "Menu.h"
 
 class Asteroids {
 private:
@@ -28,7 +28,8 @@ private:
     Player* player;
     Hud* hud;
     std::vector<Bullet> bullets;
-    std::vector<Asteroid> asteroids; // TODO
+    std::vector<Asteroid> asteroids;
+    Menu* menu;
 
     void advanceAsteroids();
 
