@@ -44,7 +44,9 @@ private:
     Player *player;
     Hud *hud;
     std::vector<Bullet> bullets;
-    std::vector<Asteroid> asteroids; // TODO
+    std::vector<Asteroid> asteroids;
+    std::chrono::time_point<std::chrono::high_resolution_clock> last_shot = std::chrono::high_resolution_clock::now();
+    float timeBetweenShots = 0.2; // in seconds
 
     void advanceAsteroids();
 

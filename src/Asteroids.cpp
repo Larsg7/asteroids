@@ -120,6 +120,13 @@ void Asteroids::handleKeyPress(sf::Event &event) {
 }
 
 void Asteroids::shootBullet() {
+    auto now = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> difference = now - last_shot;
+    if ((difference).count() < timeBetweenShots) {
+        return;
+    }
+    last_shot = std::chrono::high_resolution_clock::now();
+
     sf::Vector2f tip = player->getTip();
     sf::Vector2f velocity = player->getDirectionVector() * bulletSpeed;
     Bullet b(tip, velocity, 0);
