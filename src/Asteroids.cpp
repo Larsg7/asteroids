@@ -21,6 +21,7 @@ void Asteroids::run() {
             runGame();
             break;
         case Pause:
+            draw();
             break;
         case GameOver:
             std::cout << "GAMEOVER" << std::endl;
@@ -31,18 +32,12 @@ void Asteroids::run() {
 }
 
 void Asteroids::runGame() {
-    updatePlayer();
-    advanceAsteroids();
-    advanceBullets();
+    update();
+    draw();
     checkCollisions();
     checkForGameOver();
     cleanUp();
     updateHud();
-}
-
-void Asteroids::updatePlayer() const {
-    player->draw(window);
-    player->update();
 }
 
 void Asteroids::updateHud() const {
@@ -65,18 +60,6 @@ void Asteroids::acceptInput(sf::Event &event) {
             break;
         default:
             break;
-    }
-}
-
-void Asteroids::advanceAsteroids() {
-    int numNewAst = numAsteroids - asteroids.size();
-    for (int i = 0; i < numNewAst; i++) {
-        Asteroid a(a.startPos(window->getSize().x, window->getSize().y), sf::Vector2f());
-        asteroids.push_back(a);
-    }
-    for (Asteroid &m : asteroids) {
-        m.update();
-        m.draw(window);
     }
 }
 
@@ -114,12 +97,18 @@ void Asteroids::handleKeyPress(sf::Event &event) {
         case sf::Keyboard::Enter:
             shootBullet();
             break;
+        case sf::Keyboard::Escape:
+            pauseGame();
+            break;
         default:
             break;
     }
 }
 
 void Asteroids::shootBullet() {
+    if (gameState != Running) {
+        return;
+    }
     auto now = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> difference = now - last_shot;
     if ((difference).count() < timeBetweenShots) {
@@ -134,10 +123,11 @@ void Asteroids::shootBullet() {
     player->playShootingSound();
 }
 
-void Asteroids::advanceBullets() {
-    for (Bullet &b : bullets) {
-        b.update();
-        b.draw(window);
+void Asteroids::pauseGame() {
+    if (gameState == Pause) {
+        gameState = Running;
+    } else {
+        gameState = Pause;
     }
 }
 
@@ -232,5 +222,30 @@ void Asteroids::checkForGameOver() {
 void Asteroids::resetGame() {
     resetPlayer();
     lives = startingLives;
+}
+
+void Asteroids::update() {
+    player->update();
+    for (Asteroid &a: asteroids) {
+        a.update();
+    }
+    for (Bullet &b: bullets) {
+        b.update();
+    }
+    int numNewAst = numAsteroids - asteroids.size();
+    for (int i = 0; i < numNewAst; i++) {
+        Asteroid a(a.startPos(window->getSize().x, window->getSize().y), sf::Vector2f());
+        asteroids.push_back(a);
+    }
+}
+
+void Asteroids::draw() {
+    player->draw(window);
+    for (Asteroid &a: asteroids) {
+        a.draw(window);
+    }
+    for (Bullet &b: bullets) {
+        b.draw(window);
+    }
 }
 

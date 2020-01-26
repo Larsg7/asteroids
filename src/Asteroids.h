@@ -48,19 +48,14 @@ private:
     std::chrono::time_point<std::chrono::high_resolution_clock> last_shot = std::chrono::high_resolution_clock::now();
     float timeBetweenShots = 0.2; // in seconds
 
-    void advanceAsteroids();
 
     void shootBullet();
-
-    void advanceBullets();
 
     void cleanUp();
 
     bool outsideWindow(MoveAble *iter);
 
     void updateHud() const;
-
-    void updatePlayer() const;
 
     void checkCollisions();
 
@@ -79,6 +74,12 @@ private:
     void resetGame();
 
     void resetPlayer() const;
+
+    void pauseGame();
+
+    void update();
+
+    void draw();
 };
 
 
