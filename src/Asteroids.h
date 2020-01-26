@@ -8,10 +8,12 @@
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <stdlib.h>
 #include "GameState.h"
 #include "Player.h"
 #include "Asteroid.h"
 #include "Bullet.h"
+#include "MoveAble.h"
 
 class Asteroids {
 private:
@@ -22,10 +24,9 @@ private:
     const float bulletSpeed = 10.f;
 
     sf::RenderWindow* window;
-    Asteroid asteroid;
     Player* player;
     std::vector<Bullet> bullets;
-    std::vector<MoveAble> asteroids; // TODO
+    std::vector<Asteroid> asteroids; // TODO
 
     void advanceAsteroids();
 
@@ -46,8 +47,9 @@ public:
 
     void handleKeyPress(sf::Event &event);
 
-
     void handleMouseMove(sf::Event &event);
+    
+    double nextRandom(double min, double max);
 
     void handleMousePressed(sf::Event &event);
 };

@@ -16,7 +16,16 @@ public:
         t.rotate(rotation);
         return t.transformPoint(sf::Vector2f(0, -1));
     }
-
+//
+    static float nextRandom(float min, float max){
+        static bool firstTime = true;
+	if (firstTime) {
+	    srand( (unsigned)time(NULL));
+	    firstTime = false;
+	}
+	return (max-min)*(rand()/(float)RAND_MAX)+min;
+    }
+//
     static float angleOfVector(sf::Vector2f vector) {
         float x = vector.x;
         float y = vector.y;
@@ -28,11 +37,11 @@ public:
             return (x >= 0) ? 0
                             : 180;
         int ret = atanf((float) y / x) / (M_PI) * 180;
-        if (x < 0 && y < 0) // quadrant Ⅲ
+        if (x < 0 && y < 0) // quadrant 
             ret = 180 + ret;
-        else if (x < 0) // quadrant Ⅱ
+        else if (x < 0) // quadrant 
             ret = 180 + ret; // it actually substracts
-        else if (y < 0) // quadrant Ⅳ
+        else if (y < 0) // quadrant 
             ret = 270 + (90 + ret); // it actually substracts
         return ret - 90;
     }
