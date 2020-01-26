@@ -9,59 +9,63 @@
 #include "Helper.h"
 
 void Asteroid::setVel() {
-   sf::Transform t;
-   t.rotate(direction);
-   velocity = t.transformPoint(sf::Vector2f(0,-1)) * speed;
+    sf::Transform t;
+    t.rotate(direction);
+    velocity = t.transformPoint(sf::Vector2f(0, -1)) * speed;
 }
 
 void Asteroid::update() {
-   setVel();
-   updatePosition();
+    setVel();
+    updatePosition();
 }
 
 void Asteroid::draw(sf::RenderWindow *window) {
-   sf::CircleShape circle(size);
-   circle.setFillColor(sf::Color::Transparent);
+    sf::CircleShape circle(radius);
+    circle.setFillColor(sf::Color::Transparent);
 
-   circle.setOutlineThickness(10.f);
-   circle.setOutlineColor(sf::Color::White);
-   circle.setOrigin(sf::Vector2f(size,size));
-   circle.setPosition(position);
-   window->draw(circle);
+    circle.setOutlineThickness(10.f);
+    circle.setOutlineColor(sf::Color::White);
+    circle.setOrigin(sf::Vector2f(radius, radius));
+    circle.setPosition(position);
+    window->draw(circle);
 }
 
-sf::Vector2f Asteroid::startPos(float xlen, float ylen){
-   float xstart,ystart;
-   int startDir=(int)Helper::nextRandom(0,4.9);
-   switch(startDir){
-       case 0:
-           xstart=0;//-size;
-	   ystart=Helper::nextRandom(0,ylen);
-	   break;
-       case 1:
-	   xstart=xlen;//+size;
-	   ystart=Helper::nextRandom(0,ylen);
-	   break;
-       case 2:
-           ystart=0;//-size;
-	   xstart=Helper::nextRandom(0,xlen);
-	   break;
-       case 3:
-	   ystart=ylen;//+size;
-	   xstart=Helper::nextRandom(0,xlen);
-	   break;
-       default:
-           break;
-   }
-   return sf::Vector2f(xstart,ystart);
+sf::Vector2f Asteroid::startPos(float xlen, float ylen) {
+    float xstart, ystart;
+    int startDir = (int) Helper::nextRandom(0, 4.9);
+    switch (startDir) {
+        case 0:
+            xstart = 0;//-radius;
+            ystart = Helper::nextRandom(0, ylen);
+            break;
+        case 1:
+            xstart = xlen;//+radius;
+            ystart = Helper::nextRandom(0, ylen);
+            break;
+        case 2:
+            ystart = 0;//-radius;
+            xstart = Helper::nextRandom(0, xlen);
+            break;
+        case 3:
+            ystart = ylen;//+radius;
+            xstart = Helper::nextRandom(0, xlen);
+            break;
+        default:
+            break;
+    }
+    return sf::Vector2f(xstart, ystart);
 }
 
-Asteroid::Asteroid(const sf::Vector2f &position, const sf::Vector2f &velocity) : MoveAble(position,velocity,0) {
-    speed=Helper::nextRandom(minSpeed,maxSpeed);
-    sf::Vector2f endPos=sf::Vector2f(Helper::nextRandom(500,1600),Helper::nextRandom(500,1100));
-    direction=Helper::angleOfVector(sf::Vector2f(endPos.x-position.x,endPos.y-position.y))+180;
-    size=Helper::nextRandom(minSize,maxSize);
+Asteroid::Asteroid(const sf::Vector2f &position, const sf::Vector2f &velocity) : MoveAble(position, velocity, 0) {
+    speed = Helper::nextRandom(minSpeed, maxSpeed);
+    sf::Vector2f endPos = sf::Vector2f(Helper::nextRandom(500, 1600), Helper::nextRandom(500, 1100));
+    direction = Helper::angleOfVector(sf::Vector2f(endPos.x - position.x, endPos.y - position.y)) + 180;
+    radius = Helper::nextRandom(minSize, maxSize);
 }
 
-Asteroid::Asteroid(){}
+Asteroid::Asteroid() {}
+
+float Asteroid::getRadius() const {
+    return radius;
+}
 

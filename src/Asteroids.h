@@ -17,16 +17,32 @@
 #include "Hud.h"
 
 class Asteroids {
+public:
+    virtual ~Asteroids();
+
+    void run();
+
+    void acceptInput(sf::Event &event);
+
+    Asteroids(sf::RenderWindow *window);
+
+    void handleKeyPress(sf::Event &event);
+
+    void handleMouseMove(sf::Event &event);
+
+    void handleMousePressed(sf::Event &event);
+
 private:
+    const unsigned startingLives = 5U;
     GameState gameState = Menu;
     unsigned points = 0U;
     unsigned lives = 5U;
 
     const float bulletSpeed = 10.f;
 
-    sf::RenderWindow* window;
-    Player* player;
-    Hud* hud;
+    sf::RenderWindow *window;
+    Player *player;
+    Hud *hud;
     std::vector<Bullet> bullets;
     std::vector<Asteroid> asteroids; // TODO
 
@@ -38,22 +54,29 @@ private:
 
     void cleanUp();
 
-    bool outsideWindow(MoveAble* iter);
+    bool outsideWindow(MoveAble *iter);
 
-public:
-    void run();
+    void updateHud() const;
 
-    void acceptInput(sf::Event &event);
+    void updatePlayer() const;
 
-    Asteroids(sf::RenderWindow *window);
+    void checkCollisions();
 
-    void handleKeyPress(sf::Event &event);
+    void checkPlayerAsteroidCollisions();
 
-    void handleMouseMove(sf::Event &event);
-    
-    double nextRandom(double min, double max);
+    void playerHit();
 
-    void handleMousePressed(sf::Event &event);
+    sf::Vector2<float> getInitialPlayerPos() const;
+
+    void checkBulletAsteroidCollisions();
+
+    void checkForGameOver();
+
+    void runGame();
+
+    void resetGame();
+
+    void resetPlayer() const;
 };
 
 

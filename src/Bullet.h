@@ -9,8 +9,8 @@
 #include "MoveAble.h"
 
 class Bullet : public MoveAble {
-    constexpr const static float radius = 10.f;
 public:
+    constexpr const static float radius = 10.f;
     void draw(sf::RenderWindow *window) override;
 
     void update() override;

@@ -2,17 +2,50 @@
 // Created by Lars Groeber on 22.01.20.
 //
 
+#include <iostream>
 #include "Asteroids.h"
 #include "Helper.h"
 
 const int numAsteroids = 10;
 
 void Asteroids::run() {
-    player->draw(window);
-    player->update();
+    switch (gameState) {
+        case Menu:
+            gameState = Starting; // TODO
+            break;
+        case Starting:
+            resetGame();
+            gameState = Running;
+            break;
+        case Running:
+            runGame();
+            break;
+        case Pause:
+            break;
+        case GameOver:
+            std::cout << "GAMEOVER" << std::endl;
+            exit(0); // TODO
+        case Quitting:
+            break;
+    }
+}
+
+void Asteroids::runGame() {
+    updatePlayer();
     advanceAsteroids();
     advanceBullets();
+    checkCollisions();
+    checkForGameOver();
     cleanUp();
+    updateHud();
+}
+
+void Asteroids::updatePlayer() const {
+    player->draw(window);
+    player->update();
+}
+
+void Asteroids::updateHud() const {
     hud->setLives(lives);
     hud->setPoints(points);
     hud->display();
@@ -36,10 +69,10 @@ void Asteroids::acceptInput(sf::Event &event) {
 }
 
 void Asteroids::advanceAsteroids() {
-    int numNewAst=numAsteroids-asteroids.size();
-    for (int i=0;i<numNewAst;i++){
-        Asteroid a(a.startPos(window->getSize().x,window->getSize().y), sf::Vector2f());
-	asteroids.push_back(a);
+    int numNewAst = numAsteroids - asteroids.size();
+    for (int i = 0; i < numNewAst; i++) {
+        Asteroid a(a.startPos(window->getSize().x, window->getSize().y), sf::Vector2f());
+        asteroids.push_back(a);
     }
     for (Asteroid &m : asteroids) {
         m.update();
@@ -48,13 +81,16 @@ void Asteroids::advanceAsteroids() {
 }
 
 Asteroids::Asteroids(sf::RenderWindow *window) : window(window) {
-    for (int i=0;i<numAsteroids+1;i++){
-        Asteroid a(a.startPos(window->getSize().x,window->getSize().y), sf::Vector2f());
-	asteroids.push_back(a);
+    for (int i = 0; i < numAsteroids + 1; i++) {
+        Asteroid a(a.startPos(window->getSize().x, window->getSize().y), sf::Vector2f());
+        asteroids.push_back(a);
     }
-    player = new Player(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f());
+    player = new Player(getInitialPlayerPos(), sf::Vector2f());
     hud = new Hud(window);
 }
+
+sf::Vector2<float>
+Asteroids::getInitialPlayerPos() const { return sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2); }
 
 void Asteroids::handleKeyPress(sf::Event &event) {
     switch (event.key.code) {
@@ -111,7 +147,7 @@ void Asteroids::cleanUp() {
     }
 }
 
-bool Asteroids::outsideWindow(MoveAble* iter) {
+bool Asteroids::outsideWindow(MoveAble *iter) {
     int screenWidth = window->getSize().x;
     int screenHeight = window->getSize().y;
 
@@ -122,7 +158,7 @@ bool Asteroids::outsideWindow(MoveAble* iter) {
 void Asteroids::handleMouseMove(sf::Event &event) {
     sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(*window));
 
-    sf::Vector2f distance =  player->getPosition() - mousePos;
+    sf::Vector2f distance = player->getPosition() - mousePos;
 
     float rotation = Helper::angleOfVector(distance);
     player->setRotation(rotation);
@@ -136,5 +172,58 @@ void Asteroids::handleMousePressed(sf::Event &event) {
         default:
             break;
     }
+}
+
+Asteroids::~Asteroids() {
+    delete (player);
+    delete (hud);
+}
+
+void Asteroids::checkCollisions() {
+    checkPlayerAsteroidCollisions();
+    checkBulletAsteroidCollisions();
+}
+
+void Asteroids::checkPlayerAsteroidCollisions() {
+    for (auto it = asteroids.begin(); it != asteroids.end(); it++) {
+        if (Helper::getLengthOfVector(it->getPosition() - player->getPosition()) < it->getRadius() + player->radius) {
+            asteroids.erase(it--);
+            playerHit();
+        }
+    }
+}
+
+void Asteroids::playerHit() {
+    lives--;
+    resetPlayer();
+}
+
+void Asteroids::resetPlayer() const {
+    player->position = getInitialPlayerPos();
+    player->velocity = sf::Vector2f();
+}
+
+void Asteroids::checkBulletAsteroidCollisions() {
+    for (auto itAsteroids = asteroids.begin(); itAsteroids != asteroids.end(); itAsteroids++) {
+        for (auto itBullets = bullets.begin(); itBullets != bullets.end(); itBullets++) {
+            if (Helper::getLengthOfVector(itAsteroids->getPosition() - itBullets->getPosition()) <
+                itAsteroids->getRadius() + itBullets->radius) {
+                asteroids.erase(itAsteroids--);
+                bullets.erase(itBullets--);
+                points++;
+            }
+        }
+    }
+}
+
+void Asteroids::checkForGameOver() {
+    if (lives <= 0) {
+        gameState = GameOver;
+    }
+}
+
+void Asteroids::resetGame() {
+    resetPlayer();
+    lives = startingLives;
 }
 

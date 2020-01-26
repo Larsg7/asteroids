@@ -14,9 +14,10 @@ private:
     float maxSpeed=8;
     float minSize=10;
     float maxSize=70;
-    float size;
+    float radius;
     float direction;
 public:
+    float getRadius() const;
 
     void setVel();
 
