@@ -14,10 +14,10 @@ private:
     const float turnAngle = 5;
     const float acceleration = 0.1f;
     const float maxSpeed = 0.1f;
-    const float radius = 40.f;
     sf::Vector2f getAccelerationVector() const;
     sf::Sound shootingSound;
 public:
+    const float radius = 40.f;
     // these methods will be called on input events and change position or velocity
     void turnRight();
     void turnLeft();

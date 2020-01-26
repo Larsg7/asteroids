@@ -7,17 +7,36 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+class Asteroids;
+
 class GameO {
 private:
     sf::RenderWindow* window;
+    Asteroids* asteroids;
 public:
 
     void update();
-    bool display(int npoints);
+    void display(int npoints);
     
-    GameO(sf::RenderWindow* window);
+    GameO(sf::RenderWindow* window, Asteroids* asteroids);
     
     GameO();
+    void acceptInput(sf::Event &event);
+
+    float eWidth;
+    float eHeight;
+    float exitx;
+    float exity;
+    int padding2;
+    float gWidth;
+    float gHeight;
+    float gox;
+    int goy;
+    int starty;
+    int padding;
+    float sWidth;
+    float sHeight;
+    float startx;
 };
 
 

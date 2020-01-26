@@ -7,17 +7,32 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+class Asteroids;
+
 class MainMenu {
 private:
     sf::RenderWindow* window;
+    Asteroids* asteroids;
 public:
 
     void update();
-    bool display();
-    
-    MainMenu(sf::RenderWindow* window);
-    
+    void display();
+
+    MainMenu(sf::RenderWindow *window, Asteroids *asteroids);
+
     MainMenu();
+
+    void acceptInput(sf::Event &event);
+
+    float startx;
+    float starty;
+    float exitx;
+    float exity;
+    float sWidth;
+    float sHeight;
+    float eWidth;
+    float eHeight;
+    int padding;
 };
 
 

@@ -5,53 +5,61 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 #include "MainMenu.h"
-#include "Helper.h" 
+#include "Asteroids.h"
+#include "Helper.h"
 
 void MainMenu::update() {
 }
 
-bool MainMenu::display() {
+void MainMenu::display() {
     sf::Font font;
-    float padding = 50;
-    if(!font.loadFromFile("assets/arial.ttf")){return false;}
+    padding = 50;
+    if (!font.loadFromFile("assets/arial.ttf")) { return; }
     sf::Text start;
     start.setString("START");
     start.setFont(font);
     start.setCharacterSize(100);
     start.setOutlineColor(sf::Color::White);
     start.setFillColor(sf::Color::White);
-    float sWidth=start.getLocalBounds().width;
-    float sHeight=start.getLocalBounds().height;
-    float startx=window->getSize().x/2-sWidth/2;
-    float starty=window->getSize().y/2-sHeight/2-padding;
-    start.setPosition(startx,starty);
+    sWidth = start.getLocalBounds().width;
+    sHeight = start.getLocalBounds().height;
+    startx = window->getSize().x / 2 - sWidth / 2;
+    starty = window->getSize().y / 2 - sHeight / 2 - padding;
+    start.setPosition(startx, starty);
     window->draw(start);
-    
+
     sf::Text exit;
     exit.setString("EXIT");
     exit.setFont(font);
     exit.setCharacterSize(100);
     exit.setOutlineColor(sf::Color::White);
     exit.setFillColor(sf::Color::White);
-    float eWidth=exit.getLocalBounds().width;
-    float eHeight=exit.getLocalBounds().height;
-    float exitx=window->getSize().x/2-eWidth/2;
-    float exity=window->getSize().y/2-eHeight/2+padding;
-    exit.setPosition(exitx,exity);
+    eWidth = exit.getLocalBounds().width;
+    eHeight = exit.getLocalBounds().height;
+    exitx = window->getSize().x / 2 - eWidth / 2;
+    exity = window->getSize().y / 2 - eHeight / 2 + padding;
+    exit.setPosition(exitx, exity);
     window->draw(exit);
-    
-    auto position = Helper::Mouse_Click();
-    if (position.x>startx&&position.x<sWidth+startx&&position.y>starty+padding&&position.y<starty+sHeight+padding){
-	return true;
-    } else if (position.x>exitx&&position.x<eWidth+exitx&&position.y>exity+padding&&position.y<exity+eHeight+padding){
-	window->close();
+}
+
+
+
+MainMenu::MainMenu() {}
+
+void MainMenu::acceptInput(sf::Event &event) {
+    if (event.type != sf::Event::MouseButtonPressed) {
+        return;
     }
-    return false;
+    auto position = sf::Mouse::getPosition(*window);
+    if (position.x > startx && position.x < sWidth + startx && position.y > starty + padding &&
+        position.y < starty + sHeight + padding) {
+        asteroids->gameState = Starting;
+    } else if (position.x > exitx && position.x < eWidth + exitx && position.y > exity + padding &&
+               position.y < exity + eHeight + padding) {
+        asteroids->gameState = Quitting;
+    }
 }
 
+MainMenu::MainMenu(sf::RenderWindow *window, Asteroids *asteroids) : window(window), asteroids(asteroids) {}
 
-MainMenu::MainMenu(sf::RenderWindow* window) : window(window) {
-}
-
-MainMenu::MainMenu(){}
 
