@@ -22,6 +22,7 @@ void Asteroids::run() {
             break;
         case Pause:
             draw();
+            updateHud();
             break;
         case GameOver:
             gameO->display(points);
@@ -185,8 +186,8 @@ void Asteroids::handleMousePressed(sf::Event &event) {
 Asteroids::~Asteroids() {
     delete (player);
     delete (hud);
-    delete(mMenu);
-    delete(gameO);
+    delete (mMenu);
+    delete (gameO);
 }
 
 void Asteroids::checkCollisions() {
@@ -216,8 +217,9 @@ void Asteroids::resetPlayer() const {
 void Asteroids::checkBulletAsteroidCollisions() {
     for (auto itAsteroids = asteroids.begin(); itAsteroids != asteroids.end(); itAsteroids++) {
         for (auto itBullets = bullets.begin(); itBullets != bullets.end(); itBullets++) {
-            if (Helper::getLengthOfVector(itAsteroids->getPosition() - itBullets->getPosition()) <
-                itAsteroids->getRadius() + itBullets->radius) {
+            float minDistance = itAsteroids->getRadius() + itBullets->radius;
+            float distance = Helper::getLengthOfVector(itAsteroids->getPosition() - itBullets->getPosition());
+            if (distance < minDistance) {
                 asteroids.erase(itAsteroids--);
                 bullets.erase(itBullets--);
                 points++;
