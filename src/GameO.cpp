@@ -12,10 +12,12 @@
 void GameO::update() {
 }
 
+// dipaly the gameover screen
 void GameO::display(int npoints) {
     sf::Font font;
     padding = 50;
     if (!font.loadFromFile("assets/arial.ttf")) { return; }
+    // --- Button: Restart ---
     sf::Text start;
     start.setString("RESTART");
     start.setFont(font);
@@ -28,7 +30,9 @@ void GameO::display(int npoints) {
     starty = window->getSize().y / 2 - sHeight / 2 - padding;
     start.setPosition(startx, starty);
     window->draw(start);
+    // --- --------------- ---
 
+    // --- Button: Exit ---
     sf::Text exit;
     exit.setString("EXIT");
     exit.setFont(font);
@@ -41,20 +45,21 @@ void GameO::display(int npoints) {
     exity = window->getSize().y / 2 - eHeight / 2 + padding;
     exit.setPosition(exitx, exity);
     window->draw(exit);
+    // --- ------------ ---
 
+    // --- Display: Score ---
     sf::Text points;
     padding2 = 10;
     points.setString(std::to_string(npoints));
     points.setPosition(padding2, window->getSize().y - padding2 - 110);
-
     points.setFont(font);
     points.setCharacterSize(100);
-
     points.setOutlineColor(sf::Color::Red);
     points.setFillColor(sf::Color::Red);
-
     window->draw(points);
+    // --- -------------- ---
 
+    // --- Display: Gameover ---
     sf::Text GO;
     GO.setString("GAMEOVER");
     GO.setFont(font);
@@ -67,11 +72,13 @@ void GameO::display(int npoints) {
     goy = 0;
     GO.setPosition(gox, goy);
     window->draw(GO);
+    // --- ----------------- ---
 }
 
 
 GameO::GameO() {}
 
+// similar to the main menu check where mouse did click
 void GameO::acceptInput(sf::Event &event) {
     if (event.type != sf::Event::MouseButtonPressed) {
         return;
@@ -79,10 +86,10 @@ void GameO::acceptInput(sf::Event &event) {
     auto position = sf::Mouse::getPosition(*window);
     if (position.x > startx && position.x < sWidth + startx && position.y > starty + padding &&
         position.y < starty + sHeight + padding) {
-        asteroids->gameState = Menu;
+        asteroids->gameState = Menu; // if restart then go to main menu
     } else if (position.x > exitx && position.x < eWidth + exitx && position.y > exity + padding &&
                position.y < exity + eHeight + padding) {
-        asteroids->gameState = Quitting;
+        asteroids->gameState = Quitting; // if exit the exit the game
     }
 }
 

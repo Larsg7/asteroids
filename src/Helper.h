@@ -19,10 +19,10 @@ public:
         return t.transformPoint(sf::Vector2f(0, -1));
     }
 
-//
+// a function to randomize float numbers; also use for int if you cast to (int) again
     static float nextRandom(float min, float max) {
         static bool firstTime = true;
-        if (firstTime) {
+        if (firstTime) { // as taught in the lecture srand only once using static bool 
             srand((unsigned) time(NULL));
             firstTime = false;
         }

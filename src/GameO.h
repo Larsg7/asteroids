@@ -7,8 +7,10 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+// predefine to prevent compile error
 class Asteroids;
 
+// some useful variables and function to define graphical user interface for the game over screen
 class GameO {
 private:
     sf::RenderWindow* window;

@@ -7,8 +7,10 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+// to be able to add a point to Asteroids
 class Asteroids;
 
+// some useful varibales and function for the graphical user interface
 class MainMenu {
 private:
     sf::RenderWindow* window;

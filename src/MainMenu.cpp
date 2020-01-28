@@ -11,10 +11,13 @@
 void MainMenu::update() {
 }
 
+// Display the main menu
 void MainMenu::display() {
     sf::Font font;
     padding = 50;
     if (!font.loadFromFile("assets/arial.ttf")) { return; }
+
+    // --- Button: Start ---
     sf::Text start;
     start.setString("START");
     start.setFont(font);
@@ -27,7 +30,9 @@ void MainMenu::display() {
     starty = window->getSize().y / 2 - sHeight / 2 - padding;
     start.setPosition(startx, starty);
     window->draw(start);
+    // --- ------------- ---
 
+    // --- Button: Exit ---
     sf::Text exit;
     exit.setString("EXIT");
     exit.setFont(font);
@@ -40,22 +45,24 @@ void MainMenu::display() {
     exity = window->getSize().y / 2 - eHeight / 2 + padding;
     exit.setPosition(exitx, exity);
     window->draw(exit);
+    // --- ------------ ---
 }
 
 
 
 MainMenu::MainMenu() {}
 
+// add the functionality of a button
 void MainMenu::acceptInput(sf::Event &event) {
     if (event.type != sf::Event::MouseButtonPressed) {
         return;
     }
     auto position = sf::Mouse::getPosition(*window);
     if (position.x > startx && position.x < sWidth + startx && position.y > starty + padding &&
-        position.y < starty + sHeight + padding) {
+        position.y < starty + sHeight + padding) { // click text START to start
         asteroids->gameState = Starting;
     } else if (position.x > exitx && position.x < eWidth + exitx && position.y > exity + padding &&
-               position.y < exity + eHeight + padding) {
+               position.y < exity + eHeight + padding) { // click EXIT to exit
         asteroids->gameState = Quitting;
     }
 }
