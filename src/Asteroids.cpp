@@ -237,6 +237,7 @@ void Asteroids::checkForGameOver() {
 void Asteroids::resetGame() {
     resetPlayer();
     lives = startingLives;
+    points = 0;
 }
 
 void Asteroids::update() {
